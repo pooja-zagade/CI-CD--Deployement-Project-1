@@ -8,7 +8,7 @@ pipeline {
 
     stages {
         stage('Checkout') {
-            steps { git branch: 'main', url: 'https://github.com/your_username/nodejs-demo-app.git' }
+            steps { git branch: 'main', url: 'https://github.com/pooja-zagade/CI-CD--Deployement-Project-1.git' }
         }
 
         stage('Install Dependencies') { steps { sh 'npm install' } }
