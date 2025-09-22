@@ -25,6 +25,12 @@ pipeline {
 
         stage('Push Docker Image') { steps { sh "docker push ${IMAGE_NAME}:latest" } }
     }
+       stage('Show App Output') {
+    steps {
+        sh 'node index.js'
+    }
+}
+
 
     post {
         success { echo 'Pipeline completed successfully!' }
