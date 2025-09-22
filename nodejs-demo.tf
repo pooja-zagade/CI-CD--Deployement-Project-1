@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+
+    environment {
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')
+        IMAGE_NAME = 'pooja8282/dummy-node-app'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps { git branch: 'main', url: 'https://github.com/your_username/nodejs-demo-app.git' }
+        }
+
+        stage('Install Dependencies') { steps { sh 'npm install' } }
+
+        stage('Run Tests') { steps { sh 'npm test' } }
+
+        stage('Build Docker Image') { steps { sh "docker build -t ${IMAGE_NAME}:latest ." } }
+
+        stage('Login to DockerHub') { 
+            steps { 
+                sh "echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin" 
+            } 
+        }
+
+        stage('Push Docker Image') { steps { sh "docker push ${IMAGE_NAME}:latest" } }
+    }
+
+    post {
+        success { echo 'Pipeline completed successfully!' }
+        failure { echo 'Pipeline failed. Check logs.' }
+    }
+}
