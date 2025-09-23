@@ -1,1 +1,1 @@
-console.log("Hello from dummy Node.js app");
+console.log("Hello from dummy Node app");
