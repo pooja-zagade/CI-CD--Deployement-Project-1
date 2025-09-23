@@ -43,7 +43,7 @@ pipeline {
             }
         }
 
-        /*  Added inside stages */
+       
         stage('Show App Output') {
             steps {
                 // Run the Node.js app so its console output appears in Jenkins logs.
